@@ -15,6 +15,24 @@ const Users = [
 ];
 
 const app = express();
+app.use(express.json());
+
+app.use((req, res, next) => {
+  const start = Date.now();
+  console.log(`${req.method} ${req.url}`);
+  next();
+  const diffTime = Date.now() - start;
+  console.log(`${diffTime} ms`);
+});
+
+app.post("/users", (req, res) => {
+  const newUser = {
+    name: req.body.name,
+    id: Users.length,
+  };
+  Users.push(newUser);
+  res.json(newUser);
+});
 
 app.get("/users", (req, res) => {
   res.json(Users);
