@@ -5,11 +5,16 @@ const {static} = require("express");
 
 const PORT = 4000;
 const path = require('path')
+const mongoose = require("mongoose");
 
 const app = express();
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+
+mongoose.connect(`mongodb+srv://ekxk1234:wjd0322189!@express-cluster.piq9ydj.mongodb.net/?retryWrites=true&w=majority`)
+    .then(() => console.log('mongodb connected'))
+    .catch(err => console.log('mongodb error'))
 
 app.use(express.json());
 
