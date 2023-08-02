@@ -30,10 +30,22 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.render('index', {
-    imageTitle: "It is a forest"
-  })
+
+  // 동기 에러 처리
+  throw new Error('it is an error')
+
+  // 동기 에러 처리
+  setImmediate(() => { next(new Error('it is an error')) })
+
+  // res.render('index', {
+  //   imageTitle: "It is a forest"
+  // })
 });
+
+
+app.use((err, req, res, next) => {
+  res.json({message : err.message})
+})
 
 app.use('/users', usersRouter)
 app.use('/posts', postsRouter)
