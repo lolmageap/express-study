@@ -1,6 +1,7 @@
 const express = require("express");
 const usersRouter = require('./routes/users.router')
 const postsRouter = require('./routes/posts.router')
+const productsRouter = require('./routes/products.router')
 const {static} = require("express");
 
 const PORT = 4000;
@@ -14,7 +15,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 mongoose.connect(`mongodb+srv://ekxk1234:wjd0322189!@express-cluster.piq9ydj.mongodb.net/?retryWrites=true&w=majority`)
     .then(() => console.log('mongodb connected'))
-    .catch(err => console.log('mongodb error'))
+    .catch(err => console.log(`mongodb error : ${err}`))
 
 app.use(express.json());
 
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
 
 app.use('/users', usersRouter)
 app.use('/posts', postsRouter)
+app.use('/products', productsRouter)
 
 app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`);
